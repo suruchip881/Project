@@ -109,4 +109,5 @@ class method(object):
         # self.selectedDf = self.df[self.df[attr] == noCores]
 
         print("selectedDF empty", self.selectedDf.empty)
+        print(self.selectedDf)
         return self

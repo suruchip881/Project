@@ -1,40 +1,22 @@
-from DEA.method import method
 from twisted.trial import unittest
 import pandas as pd
+from ARAS.method import method
 
 
 class TestMethod(unittest.TestCase):
     m1 = method()
-    def test_compute(self):
-        self.m1 = self.m1.readData()
-        self.m1 = self.m1.extractDF()
-        self.m1 = self.m1.normalize()
-        self.m1 = self.m1.compute()
-        self.assertTrue(not self.m1.resultdf.empty, "Result obtained")
-
-
-        #self.assertTrue(not res.empty)
-
     def test_normalize(self):
         self.m1 = self.m1.readData()
         self.m1 = self.m1.extractDF()
         self.m1 = self.m1.normalize()
-        df= pd.DataFrame()
-        for val in self.m1.selectedDf.max():
-            if not val:
-                self.fail("Not normalized")
-                return
-        self.assertTrue("Normalized successfully")
-        #self.assertTrue(m.selectedDf.between(0,1,True))
+        self.assertTrue(not self.m1.selectedDf.empty, "Not empty")
+
+        #self.fail()
 
     def test_readData(self):
-        #self.m1 = method()
         self.m1 = self.m1.readData()
         self.assertTrue(not self.m1.df.empty)
     def test_extractDF(self):
-        selfm1 = self.m1.readData()
-        print (self.m1.df.empty)
-        #m = method()
         self.m1 = self.m1.extractDF()
         if self.m1.selectedDf.empty:
             self.fail("Empty extracted DF")
@@ -49,3 +31,9 @@ class TestMethod(unittest.TestCase):
                 return
         self.assertTrue("Success extract")
 
+    def test_compute(self):
+        self.m1 = self.m1.readData()
+        self.m1 = self.m1.extractDF()
+        self.m1 = self.m1.normalize()
+        self.m1 = self.m1.compute()
+        self.assertTrue(not self.m1.resultdf.empty, "Result obtained")
